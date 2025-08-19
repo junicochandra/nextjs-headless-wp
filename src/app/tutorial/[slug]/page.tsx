@@ -2,10 +2,11 @@ import { getPostBySlug } from "@/lib/getPostBySlug";
 import { Clock, User, BicepsFlexed } from "lucide-react";
 import timeAgo from "@/lib/timeAgo";
 import Image from "next/image";
+import { Post } from "@/type/post";
 
 export default async function Page({ params }: { params: { slug: string } }) {
   const { slug } = await params;
-  const post = await getPostBySlug(slug);
+  const post: Post = await getPostBySlug(slug);
 
   const categoryColors: Record<string, string> = {
     Beginner: "bg-green-100 text-green-800",
@@ -86,7 +87,7 @@ export default async function Page({ params }: { params: { slug: string } }) {
                 <span>Tingkat Kesulitan</span>
               </h2>
               <div className="flex flex-wrap gap-2">
-                {post.categories?.edges?.map((cat: any) => (
+                {post.categories?.edges?.map((cat) => (
                   <span
                     key={cat.node.id}
                     className={`px-3 py-1 text-sm rounded-full font-medium transition-colors duration-200 cursor-pointer uppercase ${
