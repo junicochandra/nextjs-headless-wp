@@ -2,6 +2,7 @@ import { getPosts } from "@/lib/getPosts";
 import Image from "next/image";
 import Link from "next/link";
 import timeAgo from "@/lib/timeAgo";
+import { Post } from "@/type/post";
 
 export default async function Card() {
   const data = await getPosts();
@@ -18,7 +19,7 @@ export default async function Card() {
 
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-      {posts.map((post: any) => (
+      {posts.map((post: Post) => (
         <div key={post.id} className="h-full">
           <div className="okini-card rounded-xl shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300">
             {/* Image */}
@@ -59,7 +60,7 @@ export default async function Card() {
                 {/* Category Badge */}
                 <div className="flex flex-wrap gap-2 text-xs font-semibold uppercase">
                   {post.categories.edges.length > 0 ? (
-                    post.categories.edges.map((category: any) => (
+                    post.categories.edges.map((category) => (
                       <span
                         key={category.node.id}
                         className={`px-2 py-0.5 rounded-full ${
