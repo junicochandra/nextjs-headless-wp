@@ -54,7 +54,7 @@ export default async function Card() {
             <div className="p-5">
               <div className="flex items-center justify-between gap-3 mb-4 border-b border-[var(--border-card-okini)] pb-4">
                 {/* Title */}
-                <h2 className="font-semibold uppercase">{post.title}</h2>
+                <h1 className="font-semibold uppercase">{post.title}</h1>
 
                 {/* Category Badge */}
                 <div className="flex flex-wrap gap-2 text-xs font-semibold uppercase">
