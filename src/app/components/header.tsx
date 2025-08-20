@@ -1,7 +1,8 @@
 "use client";
 
 import Link from "next/link";
-import { useState, useEffect } from "react";
+import { useState, useEffect, use } from "react";
+import { usePathname } from "next/navigation";
 import Image from "next/image";
 import {
   Bars3Icon,
@@ -14,6 +15,7 @@ export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [darkMode, setDarkMode] = useState(false);
   const [mounted, setMounted] = useState(false);
+  const pathname = usePathname();
 
   useEffect(() => {
     const savedTheme = localStorage.getItem("theme");
@@ -40,8 +42,12 @@ export default function Header() {
     }
   };
 
+  useEffect(() => {
+    setMobileMenuOpen(false);
+  }, [pathname]);
+
   return (
-    <header className=" inset-x-0 top-0 z-50">
+    <header className="fixed inset-x-0 top-0 z-50 bg-white shadow-md">
       <nav
         className="flex items-center justify-between p-6 lg:px-8"
         aria-label="Global"
@@ -94,10 +100,10 @@ export default function Header() {
           <Link href="/tutorial" className="text-sm font-semibold">
             Laravel
           </Link>
-          <Link href="/react" className="text-sm font-semibold">
+          <Link href="/tutorial/react" className="text-sm font-semibold">
             React
           </Link>
-          <Link href="/api" className="text-sm font-semibold">
+          <Link href="/tutorial/api" className="text-sm font-semibold">
             API
           </Link>
         </div>
@@ -173,19 +179,19 @@ export default function Header() {
                     Beranda
                   </Link>
                   <Link
-                    href="/blog"
+                    href="/tutorial"
                     className="block px-3 py-2 text-base font-semibold"
                   >
                     Laravel
                   </Link>
                   <Link
-                    href="/react"
+                    href="/tutorial/react"
                     className="block px-3 py-2 text-base font-semibold"
                   >
                     React
                   </Link>
                   <Link
-                    href="/api"
+                    href="/tutorial/api"
                     className="block px-3 py-2 text-base font-semibold"
                   >
                     API

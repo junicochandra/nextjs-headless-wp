@@ -17,7 +17,7 @@ export default async function Card() {
   };
 
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10">
       {posts.map((post: Post) => (
         <div key={post.id} className="h-full">
           <div className="okini-card rounded-xl shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300">
@@ -52,7 +52,7 @@ export default async function Card() {
 
             {/* Content */}
             <div className="p-5">
-              <div className="flex items-center justify-between mb-4 border-b border-gray-200 pb-4">
+              <div className="flex items-center justify-between mb-4 border-b border-[var(--border-card-okini)] pb-4">
                 {/* Title */}
                 <h2 className="font-semibold uppercase">{post.title}</h2>
 
@@ -83,7 +83,7 @@ export default async function Card() {
               />
 
               {/* Footer */}
-              <div className="flex items-center justify-between mt-5 border-t border-gray-200 pt-4">
+              <div className="flex items-center justify-between py-2 gap-10">
                 <div className="capitalize mt-2">
                   <Link
                     href={`/tutorial/${post.slug}`}

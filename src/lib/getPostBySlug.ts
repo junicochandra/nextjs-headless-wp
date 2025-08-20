@@ -1,5 +1,6 @@
 import { Post } from "@/type/post";
 import { GraphQLClient, gql } from "graphql-request";
+import { notFound } from "next/navigation";
 
 const client = new GraphQLClient(
   process.env.NEXT_PUBLIC_GRAPHQL_ENDPOINT as string
@@ -41,5 +42,8 @@ const POST_QUERY = gql`
 
 export async function getPostBySlug(slug: string): Promise<Post> {
   const data = await client.request<{ post: Post }>(POST_QUERY, { slug });
+  if (!data.post) {
+    notFound();
+  }
   return data.post;
 }
