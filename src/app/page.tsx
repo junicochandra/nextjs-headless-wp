@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 export default function Home() {
   return (
     <div>
@@ -28,12 +30,12 @@ export default function Home() {
               — untuk kamu yang ingin menjadi developer handal.
             </p>
             <div className="mt-10 flex items-center justify-center gap-x-6">
-              <a
-                href="#"
+              <Link
+                href="/tutorial"
                 className="rounded-md bg-[var(--primary)] px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:opacity-90 focus-visible:outline-2 focus-visible:outline-offset-2 transition-colors duration-200"
               >
                 Mulai Belajar
-              </a>
+              </Link>
               <a href="#" className="text-sm/6 font-semibold">
                 Jelajahi Tutorial <span aria-hidden="true">&rarr;</span>
               </a>

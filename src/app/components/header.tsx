@@ -54,8 +54,8 @@ export default function Header() {
       >
         {/* Logo */}
         <div className="flex lg:flex-1">
-          <a href="#" className="-m-1.5 p-1.5">
-            <span className="sr-only">Your Company</span>
+          <Link href="/" className="-m-1.5 p-1.5">
+            <span className="sr-only">Devoria</span>
             <Image
               width={200}
               height={200}
@@ -63,7 +63,7 @@ export default function Header() {
               alt="Devoria Logo"
               className="md:w-50 w-40"
             />
-          </a>
+          </Link>
         </div>
 
         {/* (Navbar Mobile) */}
@@ -94,16 +94,16 @@ export default function Header() {
 
         {/* (Desktop Menu) */}
         <div className="hidden lg:flex lg:gap-x-12">
-          <Link href="/" className="text-sm font-semibold">
+          <Link href="/" className="font-semibold">
             Beranda
           </Link>
-          <Link href="/tutorial" className="text-sm font-semibold">
+          <Link href="/tutorial" className="font-semibold">
             Laravel
           </Link>
-          <Link href="/tutorial/react" className="text-sm font-semibold">
+          <Link href="/tutorial/react" className="font-semibold">
             React
           </Link>
-          <Link href="/tutorial/api" className="text-sm font-semibold">
+          <Link href="/tutorial/api" className="font-semibold">
             API
           </Link>
         </div>
@@ -136,15 +136,16 @@ export default function Header() {
             } bg-[var(--background)] text-[var(--foreground)]`}
           >
             <div className="flex items-center justify-between">
-              <a href="#" className="-m-1.5 p-1.5">
+              <Link href="/" className="-m-1.5 p-1.5">
+                <span className="sr-only">Devoria</span>
                 <Image
-                  width={32}
-                  height={32}
-                  src="https://tailwindcss.com/plus-assets/img/logos/mark.svg?color=indigo&shade=600"
-                  alt="Juchan Dev Logo"
-                  className="h-8 w-auto"
+                  width={100}
+                  height={100}
+                  src="/devoria.svg"
+                  alt="Devoria Logo"
+                  className="md:w-50 w-40"
                 />
-              </a>
+              </Link>
               <div className="flex items-center gap-2">
                 {/* Toggle theme inside mobile menu */}
                 <button
