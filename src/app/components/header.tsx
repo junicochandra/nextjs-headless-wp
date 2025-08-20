@@ -57,9 +57,9 @@ export default function Header() {
           <a href="#" className="-m-1.5 p-1.5">
             <span className="sr-only">Your Company</span>
             <Image
-              width={100}
-              height={100}
-              src="/devoria.svg"
+              width={200}
+              height={200}
+              src="/devoria2.svg"
               alt="Devoria Logo"
               className="md:w-50 w-40"
             />
