@@ -1,13 +1,12 @@
-import { getPosts } from "@/lib/getPosts";
 import Image from "next/image";
 import Link from "next/link";
 import timeAgo from "@/lib/timeAgo";
-import { Post } from "@/type/post";
+import { getPosts } from "@/lib/getPosts";
+import { Post, PostsResponse } from "@/type/post";
 
 export default async function Card() {
-  const data = await getPosts();
+  const data: PostsResponse = await getPosts();
   const posts = data.posts.nodes;
-  console.log(posts);
 
   const categoryColors: Record<string, string> = {
     Beginner: "bg-green-100 text-green-800",

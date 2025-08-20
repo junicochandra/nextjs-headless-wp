@@ -2,11 +2,14 @@ import { getPostBySlug } from "@/lib/getPostBySlug";
 import { Clock, User, BicepsFlexed } from "lucide-react";
 import timeAgo from "@/lib/timeAgo";
 import Image from "next/image";
-import { Post } from "@/type/post";
 
-export default async function Page({ params }: { params: { slug: string } }) {
-  const { slug } = params;
-  const post: Post = await getPostBySlug(slug);
+export default async function Page({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}) {
+  const { slug } = await params;
+  const post = await getPostBySlug(slug);
 
   const categoryColors: Record<string, string> = {
     Beginner: "bg-green-100 text-green-800",

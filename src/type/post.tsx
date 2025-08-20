@@ -25,7 +25,14 @@ export interface Post {
   featuredImage?: {
     node: {
       sourceUrl: string;
-      altText: string;
+      altText?: string;
     };
-  } | null;
+  };
+}
+
+// Response GraphQL untuk query posts
+export interface PostsResponse {
+  posts: {
+    nodes: Post[];
+  };
 }

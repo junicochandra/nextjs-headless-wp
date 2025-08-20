@@ -1,10 +1,11 @@
-import { GraphQLClient } from "graphql-request";
+import { Post } from "@/type/post";
+import { GraphQLClient, gql } from "graphql-request";
 
 const client = new GraphQLClient(
   process.env.NEXT_PUBLIC_GRAPHQL_ENDPOINT as string
 );
 
-const POST_QUERY = `
+const POST_QUERY = gql`
   query GetPostBySlug($slug: ID!) {
     post(id: $slug, idType: SLUG) {
       id
@@ -14,29 +15,31 @@ const POST_QUERY = `
       content
       date
       modified
-      author { node { name } }
-      categories { edges { node { id name } } }
-      featuredImage { node { sourceUrl altText } }
+      author {
+        node {
+          id
+          name
+        }
+      }
+      categories {
+        edges {
+          node {
+            id
+            name
+          }
+        }
+      }
+      featuredImage {
+        node {
+          sourceUrl
+          altText
+        }
+      }
     }
   }
 `;
 
-export async function getPostBySlug(slug: string) {
-  const localKey = `post_${slug}`;
-
-  try {
-    const { post } = await client.request(POST_QUERY, { slug });
-    if (typeof window !== "undefined") {
-      try {
-        localStorage.setItem(
-          localKey,
-          JSON.stringify({ data: post, time: Date.now() })
-        );
-      } catch {}
-    }
-    return post;
-  } catch (err) {
-    console.error(err);
-    return null;
-  }
+export async function getPostBySlug(slug: string): Promise<Post> {
+  const data = await client.request<{ post: Post }>(POST_QUERY, { slug });
+  return data.post;
 }

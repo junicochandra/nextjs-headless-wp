@@ -1,75 +1,74 @@
-import { GraphQLClient } from "graphql-request";
+import { GraphQLClient, gql } from "graphql-request";
+import { PostsResponse } from "@/type/post";
 
 const TEN_MINUTES = 10 * 60 * 1000;
 
-// Use global to make this cache persist as long as the server is alive.
-globalThis.getPosts = globalThis.getPosts || { data: null, time: 0 };
+let cache: { data: PostsResponse | null; time: number } = {
+  data: null,
+  time: 0,
+};
+
+const client = new GraphQLClient(
+  process.env.NEXT_PUBLIC_GRAPHQL_ENDPOINT as string
+);
+
+const POSTS_QUERY = gql`
+  {
+    posts {
+      nodes {
+        id
+        title
+        excerpt
+        slug
+        content
+        author {
+          node {
+            id
+            name
+          }
+        }
+        categories {
+          edges {
+            node {
+              id
+              name
+              slug
+              link
+            }
+          }
+        }
+        featuredImage {
+          node {
+            sourceUrl
+            altText
+          }
+        }
+        date
+        modified
+      }
+    }
+  }
+`;
 
 export async function getPosts() {
   const now = Date.now();
 
-  if (
-    globalThis.getPosts.data &&
-    now - globalThis.getPosts.time < TEN_MINUTES
-  ) {
-    console.log("Ambil dari cache");
-    return globalThis.getPosts.data;
+  if (cache.data && now - cache.time < TEN_MINUTES) {
+    // console.log("Retrieve from cache (server)");
+    return cache.data;
   }
 
-  console.log("Fetch ke GraphQL");
-  const client = new GraphQLClient(
-    process.env.NEXT_PUBLIC_GRAPHQL_ENDPOINT as string
-  );
-  const query = `
-    {
-      posts {
-        nodes {
-          id
-          title
-          excerpt
-          slug
-          content
-          author {
-            node {
-              id
-              name
-            }
-          }
-          categories {
-            edges {
-              node {
-                id
-                name
-                slug
-                link
-              }
-            }
-          }
-          featuredImage {
-            node {
-              sourceUrl
-              altText
-            }
-          }
-          date
-          modified
-        }
-      }
-    }
-  `;
-
+  // console.log("Fetch to GraphQL API");
   try {
-    const data = await client.request(query);
-    globalThis.getPosts = { data, time: now };
+    const data = await client.request<PostsResponse>(POSTS_QUERY);
+    cache = { data, time: now }; // update cache
     return data;
   } catch (error) {
-    console.error("Error fetch GraphQL:", error);
-    // fallback: use old cache if available
-    if (globalThis.getPosts.data) {
-      console.warn("Using old cache because fetch failed");
-      return globalThis.getPosts.data;
+    // console.error("Error fetch GraphQL:", error);
+    if (cache.data) {
+      // console.warn("Use old cache because fetch failed");
+      return cache.data;
     }
     throw error;
-    // if cache is empty, still throw error
   }
 }
