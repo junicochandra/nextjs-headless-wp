@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useState, useEffect, use } from "react";
+import { useState, useEffect } from "react";
 import { usePathname } from "next/navigation";
 import Image from "next/image";
 import {
@@ -59,9 +59,9 @@ export default function Header() {
             <Image
               width={100}
               height={100}
-              src="https://tailwindcss.com/plus-assets/img/logos/mark.svg?color=indigo&shade=600"
-              alt="Juchan Dev Logo"
-              className="h-8 w-auto"
+              src="/devoria.svg"
+              alt="Devoria Logo"
+              className="md:w-50 w-40"
             />
           </a>
         </div>
