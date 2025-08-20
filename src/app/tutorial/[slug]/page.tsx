@@ -5,7 +5,7 @@ import Image from "next/image";
 import { Post } from "@/type/post";
 
 export default async function Page({ params }: { params: { slug: string } }) {
-  const { slug } = await params;
+  const { slug } = params;
   const post: Post = await getPostBySlug(slug);
 
   const categoryColors: Record<string, string> = {
