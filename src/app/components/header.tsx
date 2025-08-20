@@ -59,7 +59,7 @@ export default function Header() {
             <Image
               width={200}
               height={200}
-              src="/devoria2.svg"
+              src="/devoria.svg"
               alt="Devoria Logo"
               className="md:w-50 w-40"
             />
