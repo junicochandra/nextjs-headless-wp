@@ -23,7 +23,7 @@ export default function Home() {
           </div>
           <div className="text-center">
             <h1 className="text-5xl font-semibold tracking-tight text-balance sm:text-7xl">
-              Belajar Pemrograman Tanpa Pusing
+              Belajar Coding Tanpa Ribet
             </h1>
             <p className="mt-8 text-lg font-medium text-pretty text-[var(--light-title)] sm:text-xl/8">
               Panduan praktis, step-by-step, dan gratis. Dari dasar hingga mahir

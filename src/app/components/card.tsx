@@ -1,24 +1,20 @@
+"use client";
+
+import React from "react";
 import Image from "next/image";
 import Link from "next/link";
 import timeAgo from "@/lib/timeAgo";
-import { getPosts } from "@/lib/getPosts";
-import { Post, PostsResponse } from "@/type/post";
+import { Post } from "@/type/post";
+import { categoryColors } from "@/lib/helpers/categoryColors";
 
-export default async function Card() {
-  const data: PostsResponse = await getPosts();
-  const posts = data.posts.nodes;
+type CardProps = {
+  posts: Post[];
+};
 
-  const categoryColors: Record<string, string> = {
-    Beginner: "bg-green-100 text-green-800",
-    Intermediate: "bg-blue-100 text-blue-800",
-    Advanced: "bg-yellow-100 text-yellow-800",
-    Expert: "bg-red-100 text-red-800",
-    Uncategorized: "bg-gray-200 text-gray-700",
-  };
-
+function CardComponent({ posts }: CardProps) {
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10">
-      {posts.map((post: Post) => (
+      {posts.map((post) => (
         <div key={post.id} className="h-full">
           <div className="okini-card rounded-xl shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300">
             {/* Image */}
@@ -28,22 +24,25 @@ export default async function Card() {
                   <div className="relative w-full h-56">
                     <Image
                       fill
-                      src={post.featuredImage.node.sourceUrl || "/next.svg"}
+                      src={post.featuredImage.node.sourceUrl}
                       alt={
                         post?.featuredImage?.node?.altText ||
                         post?.title ||
                         "No image"
                       }
                       className="object-cover"
+                      loading="lazy"
+                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                     />
                   </div>
                 ) : (
                   <div className="relative w-full h-56">
                     <Image
                       fill
-                      src="/next.svg"
+                      src="/no-image.jpg"
                       alt="Juchan Dev"
                       className="object-cover"
+                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                     />
                   </div>
                 )}
@@ -53,7 +52,6 @@ export default async function Card() {
             {/* Content */}
             <div className="p-5">
               <div className="flex items-center justify-between gap-3 mb-4 border-b border-[var(--border-card-okini)] pb-4">
-                {/* Title */}
                 <h1 className="font-semibold uppercase">{post.title}</h1>
 
                 {/* Category Badge */}
@@ -103,3 +101,5 @@ export default async function Card() {
     </div>
   );
 }
+
+export const Card = React.memo(CardComponent);

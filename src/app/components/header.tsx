@@ -16,6 +16,7 @@ export default function Header() {
   const [darkMode, setDarkMode] = useState(false);
   const [mounted, setMounted] = useState(false);
   const pathname = usePathname();
+  const [isScrolled, setIsScrolled] = useState(false);
 
   useEffect(() => {
     const savedTheme = localStorage.getItem("theme");
@@ -46,8 +47,28 @@ export default function Header() {
     setMobileMenuOpen(false);
   }, [pathname]);
 
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 0) {
+        setIsScrolled(true);
+      } else {
+        setIsScrolled(false);
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
+
   return (
-    <header className="fixed inset-x-0 top-0 z-50 bg-white shadow-md">
+    <header
+      className={`fixed inset-x-0 top-0 z-50 bg-white transition-shadow ${
+        isScrolled ? "shadow-md" : "shadow-none"
+      }`}
+    >
       <nav
         className="flex items-center justify-between p-6 lg:px-8"
         aria-label="Global"
@@ -57,8 +78,8 @@ export default function Header() {
           <Link href="/" className="-m-1.5 p-1.5">
             <span className="sr-only">Devoria</span>
             <Image
-              width={200}
-              height={200}
+              width={100}
+              height={100}
               src="/devoria.svg"
               alt="Devoria Logo"
               className="md:w-50 w-40"

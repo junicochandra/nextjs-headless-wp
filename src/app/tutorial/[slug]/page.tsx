@@ -2,6 +2,7 @@ import { getPostBySlug } from "@/lib/getPostBySlug";
 import { Clock, User, BicepsFlexed } from "lucide-react";
 import timeAgo from "@/lib/timeAgo";
 import Image from "next/image";
+import { categoryColors } from "@/lib/helpers/categoryColors";
 
 export default async function Page({
   params,
@@ -10,14 +11,6 @@ export default async function Page({
 }) {
   const { slug } = await params;
   const post = await getPostBySlug(slug);
-
-  const categoryColors: Record<string, string> = {
-    Beginner: "bg-green-100 text-green-800",
-    Intermediate: "bg-blue-100 text-blue-800",
-    Advanced: "bg-yellow-100 text-yellow-800",
-    Expert: "bg-red-100 text-red-800",
-    Uncategorized: "bg-gray-200 text-gray-700",
-  };
 
   return (
     <div className="container mx-auto p-5">
@@ -41,9 +34,11 @@ export default async function Page({
           <div className="mb-6 mt-3">
             {post?.featuredImage?.node?.sourceUrl ? (
               <div className="relative w-full h-80 rounded-2xl overflow-hidden shadow-lg bg-white">
-                <div className="w-full h-full flex items-center justify-center p-6">
+                <div className="relative w-full h-full flex items-center justify-center p-6">
                   <Image
-                    src={post?.featuredImage?.node?.sourceUrl || "/next.svg"}
+                    src={
+                      post?.featuredImage?.node?.sourceUrl || "/no-image.jpg"
+                    }
                     alt={
                       post?.featuredImage?.node?.altText ||
                       post?.title ||
@@ -59,13 +54,13 @@ export default async function Page({
               </div>
             ) : (
               <div className="relative w-full h-80 rounded-2xl overflow-hidden shadow-lg bg-white">
-                <div className="w-full h-full flex items-center justify-center p-6">
+                <div className="relative w-full h-full flex items-center justify-center p-6">
                   <Image
-                    width={500}
-                    height={300}
-                    src="/next.svg"
+                    fill
+                    src="/no-image.jpg"
                     alt="Juchan Dev"
                     className="object-cover"
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                   />
                 </div>
                 <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-black/10 to-transparent" />
