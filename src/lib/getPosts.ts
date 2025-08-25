@@ -1,20 +1,17 @@
 import { GraphQLClient, gql } from "graphql-request";
 import { PostsResponse } from "@/type/post";
 
-const TEN_MINUTES = 10 * 60 * 1000;
-
-let cache: { data: PostsResponse | null; time: number } = {
-  data: null,
-  time: 0,
-};
-
 const client = new GraphQLClient(
   process.env.NEXT_PUBLIC_GRAPHQL_ENDPOINT as string
 );
 
 const POSTS_QUERY = gql`
-  {
-    posts {
+  query GetPosts($first: Int!, $after: String) {
+    posts(first: $first, after: $after) {
+      pageInfo {
+        hasNextPage
+        endCursor
+      }
       nodes {
         id
         title
@@ -50,25 +47,14 @@ const POSTS_QUERY = gql`
   }
 `;
 
-export async function getPosts() {
-  const now = Date.now();
-
-  if (cache.data && now - cache.time < TEN_MINUTES) {
-    // console.log("Retrieve from cache (server)");
-    return cache.data;
-  }
-
-  // console.log("Fetch to GraphQL API");
+export async function getPosts(first: 6, after?: string) {
   try {
-    const data = await client.request<PostsResponse>(POSTS_QUERY);
-    cache = { data, time: now }; // update cache
+    const data = await client.request<PostsResponse>(POSTS_QUERY, {
+      first,
+      after,
+    });
     return data;
   } catch (error) {
-    // console.error("Error fetch GraphQL:", error);
-    if (cache.data) {
-      // console.warn("Use old cache because fetch failed");
-      return cache.data;
-    }
     throw error;
   }
 }

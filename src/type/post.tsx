@@ -34,5 +34,9 @@ export interface Post {
 export interface PostsResponse {
   posts: {
     nodes: Post[];
+    pageInfo: {
+      hasNextPage: boolean;
+      endCursor: string | null;
+    };
   };
 }
