@@ -83,6 +83,7 @@ export default function Header() {
               src="/devoria.svg"
               alt="Devoria Logo"
               className="md:w-50 w-40"
+              priority
             />
           </Link>
         </div>
@@ -165,6 +166,7 @@ export default function Header() {
                   src="/devoria.svg"
                   alt="Devoria Logo"
                   className="md:w-50 w-40"
+                  priority
                 />
               </Link>
               <div className="flex items-center gap-2">
