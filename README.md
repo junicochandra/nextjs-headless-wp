@@ -3,6 +3,8 @@
 This is my personal portfolio project built with **Next.js 15** as the frontend and **WordPress (GraphQL)** as the headless CMS backend.  
 The project demonstrates how to integrate WordPress data with a modern React-based framework for a fast, scalable, and SEO-friendly website.
 
+**Live Portfolio:** [https://dev-junicochandra.vercel.app/](https://dev-junicochandra.vercel.app/)
+
 ---
 
 ## Features
