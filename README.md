@@ -33,7 +33,7 @@ The project demonstrates how to integrate WordPress data with a modern React-bas
 
 ## Project Structure
 
-- `components/` — Reusable UI components (Card, Footer, Header, etc.)
+- `components/` — Reusable UI components (Card, Header, Footer, etc.)
 - `app/` — Next.js App Router with dynamic routes (including slug pages)
 - `lib/`
   - `getPosts.ts` — Fetch all posts via GraphQL
