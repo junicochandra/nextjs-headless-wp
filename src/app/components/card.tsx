@@ -3,7 +3,7 @@
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
-import timeAgo from "@/lib/timeAgo";
+import timeAgo from "@/lib/helpers/timeAgo";
 import { Post } from "@/type/post";
 import { categoryColors } from "@/lib/helpers/categoryColors";
 

@@ -1,6 +1,6 @@
 import { getPostBySlug } from "@/lib/getPostBySlug";
 import { Clock, User, BicepsFlexed } from "lucide-react";
-import timeAgo from "@/lib/timeAgo";
+import timeAgo from "@/lib/helpers/timeAgo";
 import Image from "next/image";
 import { categoryColors } from "@/lib/helpers/categoryColors";
 
